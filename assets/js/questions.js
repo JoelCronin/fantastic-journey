@@ -83,7 +83,7 @@ const addEmployeeQuestions = [
     },
     {
         name: "secondNameQuestion",
-        message: "What is the sunname of this employee?",
+        message: "What is the surname of this employee?",
         type: "input",
         validate: (answer) =>{
             const nameParse = parseInt(answer)
@@ -96,7 +96,7 @@ const addEmployeeQuestions = [
     },
     {
       name: "employeeRoleQuestion",
-      message: "Who Role will they be doing?",
+      message: "What Role will they be doing?",
       type: "list",
       choices:[1, 2]
     },
@@ -108,9 +108,25 @@ const addEmployeeQuestions = [
     }
 ];
 
+const updateEmployeeQuestions = [
+  {
+      name: "whichEmployeeUpdateQuestion",
+      message: "Which Employee would you like to update?",
+      type: "list",
+      choices:[1, 2, 3, 4, 5]
+  },
+  {
+    name: "whatUpdateQuestion",
+    message: "What aspect of the record would you like to update?",
+    type: "list",
+    choices:["first_name", "last_name", ]
+  }
+]
+
 module.exports = {
     addDepartmentQuestions,
     addEmployeeQuestions,
     addRoleQuestions,
-    introQuestions
+    introQuestions,
+    updateEmployeeQuestions
 }

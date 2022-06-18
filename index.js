@@ -82,3 +82,12 @@ function addRole(){
 
 // createAndSeedDatabase();
 displayOptionList();
+
+SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.dept_name
+FROM employee, roles, department
+WHERE employee.role_id = roles.id
+And department.id = roles.department_id;
+
+SELECT roles.id, roles.title, roles.salary,  department.dept_name
+FROM department, roles
+WHERE department.id = roles.department_id;
