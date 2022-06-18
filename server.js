@@ -17,13 +17,13 @@ const db = mysql.createConnection(
   console.log(`Connected to the employee_db database.`)
 );
 
-db.query('source schema.sql', function (err, results) {
-    console.log(results);
-  });
+// db.query('source schema.sql', function (err, results) {
+//     console.log(results);
+//   });
 
-  db.query('source seeds.sql', function (err, results) {
-    console.log(results);
-  });
+//   db.query('source seeds.sql', function (err, results) {
+//     console.log(results);
+//   });
   
 // db.query('SELECT * FROM employee', function (err, results) {
 //     console.log(results);

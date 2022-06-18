@@ -10,7 +10,7 @@ const introQuestions = [
              "View all departments",
              "Add a Department",
              "View all roles",
-             "add a role",
+             "Add a role",
              "Quit"
     ]
     }
@@ -18,8 +18,8 @@ const introQuestions = [
 
 const addDepartmentQuestions = [
     {
-        name: "DepartmentQuestion",
-        message: "What is the name of the Department",
+        name: "departmentQuestion",
+        message: "What is the name of the Department?",
         type: "input",
         validate: (answer) =>{
             const departmentParse = parseInt(answer)
@@ -35,7 +35,7 @@ const addDepartmentQuestions = [
 const addRoleQuestions = [
     {
         name: "roleNameQuestion",
-        message: "What is the name of this role",
+        message: "What is the name of this role?",
         type: "input",
         validate: (answer) =>{
             const roleParse = parseInt(answer)
@@ -48,7 +48,7 @@ const addRoleQuestions = [
     },
     {
         name: "roleSalaryQuestion",
-        message: "What is the salary of this role",
+        message: "What is the salary of this role?",
         type: "input",
         validate: (answer) =>{
             const salaryParse = parseInt(answer)
@@ -62,8 +62,8 @@ const addRoleQuestions = [
     {
         name: "roleDepartmentQuestion",
         message: "What Department is this role in?",
-        type: "choice",
-        choices:["HR", "Finance"]
+        type: "list",
+        choices:[1, 2]
     }
 ];
 
@@ -95,10 +95,16 @@ const addEmployeeQuestions = [
         }  
     },
     {
+      name: "employeeRoleQuestion",
+      message: "Who Role will they be doing?",
+      type: "list",
+      choices:[1, 2]
+    },
+    {
         name: "employeeManagerQuestion",
         message: "Who will their manager be?",
-        type: "choice",
-        choices:["Joel", "Sophie"]
+        type: "list",
+        choices:[1, 2]
     }
 ];
 

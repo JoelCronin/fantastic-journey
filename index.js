@@ -26,6 +26,7 @@ function displayOptionList (){
             });
         } else if (answer.introQuestion === "Add Employee"){
             console.log("success2")
+            addEmployee();
         } else if (answer.introQuestion === "Update an employee role"){
             console.log("success3")
         }else if (answer.introQuestion === "View all departments"){
@@ -34,19 +35,48 @@ function displayOptionList (){
             displayOptionList();
             });
         }else if (answer.introQuestion === "Add a Department"){
-            console.log("success5")
+            console.log("success5");
+            addDeparment();
         }else if (answer.introQuestion === "View all roles"){
             db.query('SELECT * FROM roles', function (err, results) {
             console.table(results);
             displayOptionList();
             });
-        }else if (answer.introQuestion === "add a role"){
+        }else if (answer.introQuestion === "Add a role"){
             console.log("success7")
+            addRole();
         }else {
             console.log("success8")
         }
     })
-}
+};
+
+function addEmployee (){
+    inquirer.prompt(fileQuestions.addEmployeeQuestions)
+    .then((answer) => {
+        db.execute(`INSERT INTO employee(first_name, last_name, role_id, manager_id)
+        VALUES ("${answer.firstNameQuestion}", "${answer.secondNameQuestion}", "${answer.employeeRoleQuestion}", ${answer.employeeManagerQuestion});`);
+        displayOptionList();
+    })
+};
+
+function addDeparment (){
+    inquirer.prompt(fileQuestions.addDepartmentQuestions)
+    .then((answer) => {
+        db.execute(`INSERT INTO department (dept_name)
+        VALUES ("${answer.departmentQuestion}");`);
+        displayOptionList();
+    })
+};
+
+function addRole(){
+    inquirer.prompt(fileQuestions.addRoleQuestions)
+    .then((answer) => {
+        db.execute(`INSERT INTO roles (title, salary, department_id)
+        VALUES ("${answer.roleNameQuestion}", ${answer.roleSalaryQuestion}, ${answer.roleDepartmentQuestion});`);
+        displayOptionList();
+    })
+};
 
 
 
