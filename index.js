@@ -4,7 +4,7 @@ const inquirer = require("inquirer");
 const mysql = require('mysql2');
 const db = require("./server");
 const cTable = require('console.table');
-// const view = require("./options/view")
+
 
 // Displays initial List of options to choose from
 function displayOptionList (){
@@ -136,6 +136,7 @@ function updateEmployee(){
 
     //Answers used to update MySQL
     .then((answer) => {
+        //Split method seperates answer into seperate elements so ID's can be accessed and fed back into query
         let roleIDUpdate = answer.whatRoleUpdate.split(" ")
         let employeeIDUpdate = answer.whichEmployeeUpdate.split(" ")
         db.query(`UPDATE employee
@@ -148,6 +149,7 @@ function updateEmployee(){
 
 //Function to create a new employee
 function addEmployee (){
+     //Call these two functions first so we have access to list of employees and roles to be used in questions
     populateRolesArray();
     populateEmployeeArray();
     choiceofEmployee.push("NULL")
@@ -192,6 +194,7 @@ function addEmployee (){
         }
     ])
     .then((answer) => {
+        //Split method seperates answer into seperate elements so ID's and names can be accessed and fed back into query
         let roleIDanswer = answer.employeeRoleQuestion.split(" ")
         let managerIDanswer = answer.employeeManagerQuestion.split(" ")
        
@@ -208,6 +211,7 @@ function addEmployee (){
     })
 };
 
+//Function to add department
 function addDeparment (){
     inquirer.prompt(fileQuestions.addDepartmentQuestions)
     .then((answer) => {
@@ -217,7 +221,9 @@ function addDeparment (){
     })
 };
 
+//Function to add role
 function addRole(){
+    //Call this function first to get up-to-date list of departments to choose from
     populateDeptArray();
     inquirer.prompt([
         {
@@ -261,4 +267,5 @@ function addRole(){
     })
 };
 
+// Called to start the question process
 displayOptionList();
