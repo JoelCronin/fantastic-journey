@@ -138,7 +138,7 @@ function updateEmployee(){
     .then((answer) => {
         let roleIDUpdate = answer.whatRoleUpdate.split(" ")
         let employeeIDUpdate = answer.whichEmployeeUpdate.split(" ")
-        db.execute(`UPDATE employee
+        db.query(`UPDATE employee
         SET role_id = ${roleIDUpdate[0]}
         WHERE id = ${employeeIDUpdate[0]}`);
         displayOptionList();
@@ -202,7 +202,7 @@ function addEmployee (){
             var managerFullname = "null"
         }
         
-        db.execute(`INSERT INTO employee(first_name, last_name, role_id, manager_id, manager_name)
+        db.query(`INSERT INTO employee(first_name, last_name, role_id, manager_id, manager_name)
         VALUES ("${answer.firstNameQuestion}", "${answer.secondNameQuestion}", "${roleIDanswer[0]}", ${managerIDanswer[0]}, "${managerFullname}");`);
         displayOptionList();
     })
@@ -211,7 +211,7 @@ function addEmployee (){
 function addDeparment (){
     inquirer.prompt(fileQuestions.addDepartmentQuestions)
     .then((answer) => {
-        db.execute(`INSERT INTO department (dept_name)
+        db.query(`INSERT INTO department (dept_name)
         VALUES ("${answer.departmentQuestion}");`);
         displayOptionList();
     })
@@ -262,13 +262,3 @@ function addRole(){
 };
 
 displayOptionList();
-
-module.exports = {
-    displayOptionList,
-    employeeArray,
-    rolesArray,
-    deptArray,
-    populateEmployeeArray,
-    populateDeptArray,
-    populateRolesArray
-}
