@@ -1,3 +1,5 @@
+//Questions to be fed inot inquirer
+
 const introQuestions = [
     {
         name: "introQuestion",

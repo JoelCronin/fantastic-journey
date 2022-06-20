@@ -1,3 +1,5 @@
+-- Seed the tables with some mock employees
+
 USE employee_db;
 
 INSERT INTO department (dept_name)
@@ -16,12 +18,12 @@ VALUES ("Sales Director", 100000.00, 1),
        ("Finance Director", 90000.00, 4),
        ("Finance Manager", 70000.00, 4);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Joel", "Smith", 1, NULL),
-       ("Sophie", "Brown", 2, 1),
-       ("Sarah", "Clark", 3, NULL), 
-       ("Tom", "Highfield", 4, 3),
-       ("John", "Burns", 5, NULL),
-       ("Eva", "Turle", 6, 5), 
-       ("Emma", "Moss", 7, NULL),
-       ("Steve", "Cook", 8, 7);
+INSERT INTO employee (first_name, last_name, role_id, manager_id, manager_name)
+VALUES ("Joel", "Smith", 1, NULL, NULL),
+       ("Sophie", "Brown", 2, 1, "Joel Smith"),
+       ("Sarah", "Clark", 3, NULL, NULL), 
+       ("Tom", "Highfield", 4, 3, "Sarah Clark"),
+       ("John", "Burns", 5, NULL, NULL),
+       ("Eva", "Turle", 6, 5, "John Burns"), 
+       ("Emma", "Moss", 7, NULL, NULL),
+       ("Steve", "Cook", 8, 7, "Emma Moss");
