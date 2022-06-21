@@ -53,6 +53,10 @@ function displayOptionList (){
             addRole();
         
         //Pressing quit will exit the application
+        } else if (answer.introQuestion === "Delete a Department"){
+            deleteDepartment();
+        
+        //Pressing quit will exit the application
         }else {
             process.exit();
 
@@ -115,34 +119,40 @@ function updateEmployee(){
     populateRolesArray();
     inquirer.prompt([
         {
+            //allows user to get out of update if they accidentally clicked
             name: "confirmUpdate",
             message: "Are you sure you want to update employee?",
-            type: "list",
-            choices: ["YES", "NO"]
+            type: "confirm"
         },
         {
             name: "whichEmployeeUpdate",
             message: "What Employee would you like to update?",
             type: "list",
-            choices: choiceofEmployee
+            choices: choiceofEmployee,
+            when: confirm => confirm.confirmUpdate
         },
         {
             name: "whatRoleUpdate",
             message: "What role will they now be doing?",
             type: "list",
-            choices: choiceOfRoles
+            choices: choiceOfRoles,
+            when: confirm => confirm.confirmUpdate
         }
     ])
 
     //Answers used to update MySQL
     .then((answer) => {
+        //if user selected no to confirmUpdate returns to main menu
+        if(answer.confirmUpdate === false){
+        displayOptionList();
+        } else{        
         //Split method seperates answer into seperate elements so ID's can be accessed and fed back into query
         let roleIDUpdate = answer.whatRoleUpdate.split(" ")
         let employeeIDUpdate = answer.whichEmployeeUpdate.split(" ")
         db.query(`UPDATE employee
         SET role_id = ${roleIDUpdate[0]}
         WHERE id = ${employeeIDUpdate[0]}`);
-        displayOptionList();
+        displayOptionList();}
     })
 
 }
@@ -266,6 +276,39 @@ function addRole(){
         displayOptionList();
     })
 };
+
+function deleteDepartment(){
+    populateDeptArray();
+    inquirer.prompt([
+        {
+            //Lets user get out of delete option if they accidentally clicked on it
+            name: "confirmDelete",
+            message: "Are you sure you want to delete Department?",
+            type: "confirm",
+            default: true
+        },
+        {
+            name: "whichDepartmentDelete",
+            message: "What department would you like to delete?",
+            type: "list",
+            choices: choiceofDepts,
+            when: confirm => confirm.confirmDelete
+        },
+    ])
+
+    //Answers used to update MySQL
+    .then((answer) => {
+        //if user selected no to confirmDelete returns to main menu
+        if (answer.confirmDelete === false){
+            displayOptionList();
+        } else {
+        //Split method seperates answer into seperate elements so ID's can be accessed and fed back into query
+        let deptIDdelete = answer.whichDepartmentDelete.split(" ")
+        db.query(`DELETE FROM department
+        WHERE id = ${deptIDdelete[0]}`);
+        displayOptionList();}
+    })
+}
 
 // Called to start the question process
 displayOptionList();
